@@ -96,6 +96,33 @@ Whatever::Application.config.middleware.use ExceptionNotifier,
 For more options to set Campfire, like _ssl_, check
 [here](https://github.com/collectiveidea/tinder/blob/master/lib/tinder/campfire.rb#L17).
 
+BugzScout Notifier
+---
+
+ExceptionNotifier can also send notifications to FogBugz using the BugzScout API.
+
+To configure it, you need to set the url like this:
+```ruby
+Whatever::Application.config.middleware.use ExceptionNotifier,
+  :bugzscout => {
+    :url => 'my_subdomain',
+    :username => 'name',
+    :project => 'my_token',
+    :area => 'my_room'
+  }
+```````
+By default, BugzScout will append to an existing bug with identical title. To force 
+FogBugz to always create a new bug, set the forceNew flag to true:
+```ruby
+Whatever::Application.config.middleware.use ExceptionNotifier,
+  :bugzscout => {
+    :url => 'my_subdomain',
+    :username => 'name',
+    :project => 'my_token',
+    :area => 'my_room',
+    :forceNew => true
+  }
+```````
 
 Webhook Notifier
 ---

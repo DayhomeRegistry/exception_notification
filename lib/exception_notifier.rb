@@ -8,6 +8,7 @@ class ExceptionNotifier
   autoload :EmailNotifier, 'exception_notifier/email_notifier'
   autoload :CampfireNotifier, 'exception_notifier/campfire_notifier'
   autoload :WebhookNotifier, 'exception_notifier/webhook_notifier'
+  autoload :BugzscoutNotifier, 'exception_notifier/bugzscout_notifier'
 
   class UndefinedNotifierError < StandardError; end
 
