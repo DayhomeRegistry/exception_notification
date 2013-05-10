@@ -6,17 +6,18 @@
 # Copyright:: Copyright (c) 2009 Michael Gorsuch
 # License:: Distributed under the same terms as Ruby
 
-require 'restclient'
+require 'nestful'
 require 'uri'
 
 module FogBugz
   # This is the core class that does all of the heavy lifting.
   class BugzScout
-    attr_accessor :url, :user, :project, :area, :title, :new, :body, :email
+    attr_accessor :url, :user, :project, :area, :title, :forceNew, :body, :email
 
     # provide BugzScout with the URL of your FogBugz instance, including the 'scoutsubmit.asp' entry point
     # example: https://styledbits.fogbugz.com/scoutsubmit.asp
     def initialize(url)
+      Rails.logger.info "#{self.class}.initialize"
       self.url = url
     end
 
@@ -24,6 +25,8 @@ module FogBugz
     # return true if all goes well
     # throw a BugzScoutError exception along with the error text if otherwise.
     def submit
+      Rails.logger.info "FogBugz::BugzScout.submit"
+
       # ensure that the required fields are included
       validate
 
@@ -32,21 +35,30 @@ module FogBugz
         :ScoutProject => self.project,
         :ScoutArea => self.area,
         :Description => self.title,
-        :ForceNewBug => self.new,
+        :ForceNewBug => self.forceNew,
         :Extra => self.body,
         :Email => self.email,
         :ScoutDefaultMessage => "",
         :FriendlyResponse => 0
       }
 
-      response = RestClient.post(url, body)
+
+      begin
+        Rails.logger.info "Calling FogBugz"
+        response = Nestful.post(url, body).to_json
+      rescue => e
+        Rails.logger.fatal "#{e.message}:#{e.backtrace}"
+        raise(BugzScoutError, e.message)
+      end
 
       if response =~ /<Error>(.*)<\/Error>/
         # if we see an error response, we know that we fudged some of our input values to BugzScout
         # the error message should contain where we went wrong.
         # We raise the exception so the user can catch it and log if necessary.  No one likes things that fail silently!
+        Rails.logger.fatal "BugzScoutError:#{$1}"
         raise(BugzScoutError, $1)
       else
+        Rails.logger.info "FogBugz success."
         # we'll return 'true' for the sake of clarity
         return true
       end

@@ -4,6 +4,7 @@ PATH
     exception_notification (3.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
+      nestful
 
 GEM
   remote: https://rubygems.org/
@@ -63,6 +64,7 @@ GEM
     multi_json (1.3.6)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
+    nestful (1.0.3)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)

@@ -36,9 +36,10 @@ Dummy::Application.configure do
   config.assets.debug = true
 
   #Setup ExceptionNotifier
+  config.log_level = :info
   config.middleware.use ExceptionNotifier,
     :bugzscout => {
-      :url => 'dayhomeregistry.fogbugz.com',
+      :url => 'https://dayhomeregistry.fogbugz.com/scoutSubmit.asp',
       :username => 'bugzscout',
       :project => 'Inbox',
       :area => 'Not Spam'

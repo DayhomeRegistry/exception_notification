@@ -101,6 +101,13 @@ BugzScout Notifier
 
 ExceptionNotifier can also send notifications to FogBugz using the BugzScout API.
 
+First you'll need to add [bugzsout](https://bitbucket.org/mgorsuch/rb-bugzscout/wiki/Home)
+to your `Gemfile`:
+
+```ruby
+gem 'bugzscout'
+```````
+
 To configure it, you need to set the url like this:
 ```ruby
 Whatever::Application.config.middleware.use ExceptionNotifier,

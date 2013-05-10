@@ -36,3 +36,7 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+# To configure BugzScout exception_notification
+gem 'bugzscout'
+gem 'exception_notification', :path => '~/Projects/exception_notification/'

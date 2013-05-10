@@ -26,6 +26,8 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
 
+    raise "This is another new exception in Post.new"
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @post }

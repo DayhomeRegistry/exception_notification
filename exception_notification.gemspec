@@ -14,6 +14,9 @@ Gem::Specification.new do |s|
   s.add_dependency("actionmailer", ">= 3.0.4")
   s.add_dependency("activesupport", ">= 3.0.4")
 
+  #Using the Nestful http client to avoid the rest-client gsub issue
+  s.add_dependency "nestful"
+
   s.add_development_dependency "tinder", "~> 1.8"
   s.add_development_dependency "httparty", "~> 0.10.2"
   s.add_development_dependency "rails", ">= 3.0.4"
