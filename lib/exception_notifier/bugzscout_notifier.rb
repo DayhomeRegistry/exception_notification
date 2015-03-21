@@ -55,7 +55,7 @@ class ExceptionNotifier
 
     class ErrorFormatter < AbstractController::Base
       include AbstractController::Rendering
-      include AbstractController::Layouts
+      include ActionView::Layouts
       include AbstractController::Helpers
       include AbstractController::Translation
       include AbstractController::AssetPaths
